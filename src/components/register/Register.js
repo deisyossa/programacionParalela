@@ -12,22 +12,16 @@ const Register = (props) => {
 
   const registrarMovimiento = (e) => {
     e.preventDefault();
-    const registro = { id: uuidv4(), name: props.movimiento, completed: false };
+    const registro = { id: uuidv4(), nombre, tipo, valor };
     props.setTodos([...props.todo, registro]);
     limpiarFormulario();
   };
 
   const limpiarFormulario = () => {
-    props.setMovimiento(obtenerRegistroVacio)
+    props.setMovimiento({ nombre: "", tipo: "", valor: "" })
   }
 
-  const obtenerRegistroVacio = () => {
-    return {
-      nombre: "",
-      tipo: "",
-      valor: 0,
-    };
-  };
+
 
   return (
     <div className="col-5 py-3 border border-3 rounded align-self-start">
@@ -50,12 +44,9 @@ const Register = (props) => {
             </label>
           </div>
         </div>
-        <div className="col-4"></div>
+        <div className="col-3"></div>
         <div className="col-8">
           <div className="input-group mb-3">
-            <span className="input-group-text">
-              <i className="bi bi-plus-circle"></i>
-            </span>
             <select
               className="form-select"
               id="tipo-movimiento"
@@ -70,9 +61,6 @@ const Register = (props) => {
             </select>
           </div>
           <div className="input-group mb-3">
-            <span className="input-group-text">
-              <i className="bi bi-file-earmark-text-fill"></i>
-            </span>
             <input
               type="text"
               className="form-control"
@@ -85,9 +73,6 @@ const Register = (props) => {
             />
           </div>
           <div className="input-group mb-3">
-            <span className="input-group-text">
-              <i className="bi bi-currency-dollar"></i>
-            </span>
             <input
               type="number"
               className="form-control"

@@ -1,14 +1,24 @@
 import React from 'react'
-
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const Transaction = (props) => {
+  
   return (
-    <li className="list">
-      <div className="">{props.todo.name.tipo}</div>
-      <div className="">{props.todo.name.nombre}</div>
-      <div className="">{props.todo.name.valor}</div>
+    <div>
+      <div>
+        <p className="my-1">
+          <button
+            className="btn-noborder btn-eliminar" onClick={() => props.deleteMovimiento(props.movimiento)}>
+            <FaTrash />
+          </button>
+          <button className="button-edit" >
+            <FaEdit />
+          </button>
+          <span> {props.todo.tipo} {props.todo.nombre} {props.todo.valor}</span>
+        </p>
+      </div>
 
-    </li>
+    </div >
   )
 }
 

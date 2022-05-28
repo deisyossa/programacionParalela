@@ -1,18 +1,12 @@
-
 const Filter = (props) => {
     return (
         <form className="px-4 mb-4">
             <div className="input-group mb-3 form-inline">
-                <span className="input-group-text" id="basic-addon1">
-                    <i className="bi bi-search"></i>
-                </span>
                 <input
                     type="text"
                     className="form-control"
-                    id="nombre"
+                    id="filtroMov"
                     placeholder="busca por el nombre"
-                    value='{props.filter}'
-                    onChange='{filterName}'
                 />
             </div>
             <div className="form-check form-check-inline">
