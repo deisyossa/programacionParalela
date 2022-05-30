@@ -1,3 +1,4 @@
+
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -6,23 +7,24 @@ const Register = (props) => {
   const value = props.movimiento;
   const { nombre, tipo, valor } = value;
 
+  const convertir = (numero) => {
+    return parseInt(numero);
+  }
+
   const handleChange = ({ target }) => {
     props.setMovimiento({ ...props.movimiento, [target.name]: target.value });
   };
 
   const registrarMovimiento = (e) => {
     e.preventDefault();
-    const registro = { id: uuidv4(), nombre, tipo, valor };
-    props.setTodos([...props.todo, registro]);
+    const registro = { id: uuidv4(), nombre, tipo, valor: convertir(valor) };
+    props.nuevosaldo(registro);
     limpiarFormulario();
   };
 
   const limpiarFormulario = () => {
-    props.setMovimiento({ nombre: "", tipo: "", valor: "" })
+    props.setMovimiento({ nombre: "", tipo: "", valor: 0 })
   }
-
-
-
   return (
     <div className="col-5 py-3 border border-3 rounded align-self-start">
       <h4 className="mb-5">Registro de Movimientos</h4>
@@ -82,6 +84,7 @@ const Register = (props) => {
               onChange={handleChange}
               placeholder="Valor"
               required
+              min="1"
             />
           </div>
         </div>
