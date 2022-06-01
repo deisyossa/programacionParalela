@@ -13,6 +13,7 @@ const Filter = (props) => {
                     className="form-control"
                     id="filtroMov"
                     placeholder="busca por el nombre"
+                    onChange={event => props.filterMovimientoNombre(event.target.value)}
                 />
             </div>
             <div className="form-check form-check-inline">

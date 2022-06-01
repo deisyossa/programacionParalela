@@ -13,19 +13,41 @@ const transactionList = (props) => {
         props.setTodos(newFilter);
     };
 
+    const filterMovimientoNombre = (inputValue) => {
+        const newFilter = props.todo.filter((tipomov) => tipomov.nombre === inputValue);
+        props.setTodosFilterList(newFilter);
+    };
+
+
+    console.log();
+
     return (
         <div className="col-5 py-3 border border-3 rounded">
             <h4 className="d-flex justify-content-between align-items-center">
                 <span className="text-primary">Lista de Movimientos</span>
                 <div className="count">Cantidad: {props.todo.length}</div>
                 <span className="badge bg-primary rounded-pill">
-                    <Filter movimientos={props} />
+                    <Filter movimientos={props} filterMovimientoNombre={filterMovimientoNombre} />
                 </span>
             </h4>
             <div>
-                {props.todo.map((todo) => (
-                    <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} filterMovimiento={filterMovimiento}></Transaction>
-                ))}
+                {
+                    props.todoFilterList.length > 0 ? (
+                        <>
+                        {props.todoFilterList.map((todo) => (
+                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} filterMovimiento={filterMovimiento}></Transaction>
+                            ))}
+                        </>
+                    ) : (
+                        <>
+                        {props.todo.map((todo) => (
+                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} filterMovimiento={filterMovimiento}></Transaction>
+                            ))}
+                        </>
+                    )
+                }
+
+
             </div>
         </div>
 

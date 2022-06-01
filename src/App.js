@@ -7,6 +7,7 @@ import swal from 'sweetalert';
 function App() {
   const [movimiento, setMovimiento] = useState({ nombre: "", tipo: "", valor: 0 });
   const [todo, setTodos] = useState([]);
+  const [todoFilterList, setTodosFilterList] = useState([]);
   const [tipo, setTipo] = useState(0);
   const [saldoInicial, setSaldoInicial] = useState(10000000);
   const [saldoFinal, setSaldoFinal] = useState(saldoInicial);
@@ -85,7 +86,7 @@ function App() {
       <section className="container-fluid px-3 mt-5 pt-3">
         <div className="row justify-content-evenly">
           <Register nuevosaldo={nuevosaldo} movimiento={movimiento} setMovimiento={setMovimiento} ></Register>
-          <TransactionList todo={todo} setTodos={setTodos} tipo={tipo} setTipo={setTipo}></TransactionList>
+          <TransactionList todo={todo} setTodos={setTodos} todoFilterList={todoFilterList} setTodosFilterList={setTodosFilterList} tipo={tipo} setTipo={setTipo}></TransactionList>
         </div>
       </section>
     </div>
