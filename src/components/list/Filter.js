@@ -1,8 +1,12 @@
 
 const Filter = (props) => {
 
+    const searchName = (e) => {
+        e.preventDefault();
+    }
     const cambioRadio = (e) => {
-        props.setTipo(e.target.value);
+        const valorRadio = e.target.value;
+        props.filterMovimiento(valorRadio);
     }
 
     return (
@@ -13,6 +17,7 @@ const Filter = (props) => {
                     className="form-control"
                     id="filtroMov"
                     placeholder="busca por el nombre"
+                    onSubmit = {searchName}
                     onChange={event => props.filterMovimientoNombre(event.target.value)}
                 />
             </div>
@@ -24,7 +29,7 @@ const Filter = (props) => {
                     id="inlineRadio1"
                     checked={props.tipo === 0 ? true : false}
                     onChange ={cambioRadio}
-                    value = "0"
+                    value = "Todos"
                 />
                 <label className="form-check-label" htmlFor="inlineRadio1">
                     Todos
@@ -38,7 +43,7 @@ const Filter = (props) => {
                     id="inlineRadio2"
                     checked={props.tipo === 1 ? true : false}
                     onChange ={cambioRadio}
-                    value = "1"
+                    value = "Ingreso"
                 />
                 <label className="form-check-label" htmlFor="inlineRadio2">
                     Ingresos
@@ -52,7 +57,7 @@ const Filter = (props) => {
                     id="inlineRadio3"    
                     checked={props.tipo === 2 ? true : false}
                     onChange ={cambioRadio}
-                    value = "2"
+                    value = "Gasto"
                 />
                 <label className="form-check-label" htmlFor="inlineRadio3">
                     Gastos

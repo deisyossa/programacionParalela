@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/header/Header';
 import Register from './components/register/Register';
 import TransactionList from './components/list/TransactionList';
@@ -11,6 +11,7 @@ function App() {
   const [tipo, setTipo] = useState(0);
   const [saldoInicial, setSaldoInicial] = useState(10000000);
   const [saldoFinal, setSaldoFinal] = useState(saldoInicial);
+  const [edit, setEdit] = useState([]);
 
   const convertir = (numero) => {
     return parseInt(numero);
@@ -35,15 +36,6 @@ function App() {
           button: "Aceptar"
         })
         setTodos([...todo, registro])
-        let ingresos = obtenerTotal(todo, 'Ingreso');
-        let gastos = obtenerTotal(todo, 'Gasto');
-        if (registro.tipo === 'Ingreso') {
-          ingresos += convertir(registro.valor)
-        } else {
-          gastos += convertir(registro.valor)
-        }
-        const saldoTotal = convertir(saldoInicial + (ingresos - gastos));
-        setSaldoFinal(saldoTotal);
       }
     } else {
       swal({
@@ -75,8 +67,15 @@ function App() {
   const actualizarSaldo = (valor) => {
     valor = convertir(valor);
     setSaldoInicial(valor);
-    setSaldoFinal(valor)
   }
+
+  useEffect(() => {
+    let ingresos = obtenerTotal(todo, 'Ingreso');
+    let gastos = obtenerTotal(todo, 'Gasto');
+    const saldoTotal = convertir(saldoInicial + (ingresos - gastos));
+    setSaldoFinal(saldoTotal);
+  }, [todo,saldoInicial])
+  
 
   return (
     <div id="modal-container" className="d-grid gap-2">
@@ -86,7 +85,7 @@ function App() {
       <section className="container-fluid px-3 mt-5 pt-3">
         <div className="row justify-content-evenly">
           <Register nuevosaldo={nuevosaldo} movimiento={movimiento} setMovimiento={setMovimiento} ></Register>
-          <TransactionList todo={todo} setTodos={setTodos} todoFilterList={todoFilterList} setTodosFilterList={setTodosFilterList} tipo={tipo} setTipo={setTipo}></TransactionList>
+          <TransactionList todo={todo} setTodos={setTodos} todoFilterList={todoFilterList} setTodosFilterList={setTodosFilterList} tipo={tipo} setTipo={setTipo} edit={edit}setEdit={setEdit}></TransactionList>
         </div>
       </section>
     </div>
