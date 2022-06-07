@@ -23,26 +23,38 @@ const transactionList = (props) => {
             //const newVal = inputVal.map((newValue) => newValue.id === {tipo, nombre, valor} , newValue);
         };
         props.setEdit(editMov);
-        swal.fire({
-            title: 'Editar Movimiento',
-            html:
-                `
-                <form>
-                    <select class="swal2-select">
-                        <option value=${edit.tipo}>${edit.tipo}</option>
-                        <option value='Ingreso'>Ingreso</option>
-                        <option value='Gasto'>Gasto</option>
-                    </select>
-                    <input type="text" id="movimiento" class="swal2-input" placeholder="Ingrese movimiento" value=${edit.nombre}>
-                    <input type="number" class="swal2-input" placeholder="Ingrese valor" value=${edit.valor}>
-                </form>
-                `,
-            confirmButtonText: 'Guardar cambios',
-            cancelButtonText: 'Cancelar',
-            showCloseButton: true,
-            focusConfirm: false,
-            showCancelButton: true
-        });
+       swal
+         .fire({
+           title: "Editar Movimiento",
+           html: `<input type="text" id="movimiento" class="swal2-input" placeholder="Ingrese movimiento" value=${edit.nombre}>
+                   <input type="number" id="ValMove" class="swal2-input" placeholder="Ingrese valor" value=${edit.valor} >`,
+           confirmButtonText: "Guardar cambios",
+           focusConfirm: false,
+           cancelButtonText: "Cancelar",
+           showCloseButton: true,
+           focusConfirm: false,
+           showCancelButton: true,
+           preConfirm: () => {
+             const movimiento = swal
+               .getPopup()
+               .querySelector("#movimiento").value;
+             const valor = swal.getPopup().querySelector("#ValMove").value;
+             if (!movimiento || !valor) {
+               swal.showValidationMessage(`Please enter movimiento and value`);
+             }
+             console.log(movimiento);
+             console.log(valor);
+             return { movimiento: movimiento, ValMove: valor };
+           },
+         })
+         .then((result) => {
+           swal.fire(
+             `
+                  Movimiento: ${result.value.movimiento}
+                  Valor: ${result.value.ValMove}
+                    `.trim()
+           );
+         });
         //props.nuevosaldo(registro); 
         console.log(edit);
 
