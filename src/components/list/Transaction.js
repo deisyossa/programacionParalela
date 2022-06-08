@@ -10,7 +10,7 @@ const Transaction = (props) => {
             className="btn-noborder btn-eliminar" onClick={() => props.deleteMovimiento(props.todo)}>
             <FaTrash />
           </button>
-          <button className="button-edit" onClick={() => props.editMovimiento(props.todo)} >
+          <button className="button-edit" onClick={() => props.editMovimiento(props.todo)}>
             <FaEdit />
           </button>
           <span> {props.todo.tipo} {props.todo.nombre}</span>

@@ -13,51 +13,51 @@ const transactionList = (props) => {
         props.setTodos(newMovimiento);
     };
 
+    const updateMov = (id, tipo, nombre, valor) => {
+        const newMov = props.todo.map((mov) => mov.id === id ? { id: id, tipo: tipo, nombre: nombre, valor: valor } : mov);
+        props.setTodos(newMov);
+    }
     const editMovimiento = (edit) => {
         const editMov = props.edit.filter((editar) => editar.id === edit.id);
-        const handleChange = ({ target }) => {
-            props.setMovimiento({ ...inputVal, [target.name]: target.inputVal });
-        };
-        const actualizar = (e) => {
-            e.preventDefault();
-            //const newVal = inputVal.map((newValue) => newValue.id === {tipo, nombre, valor} , newValue);
-        };
         props.setEdit(editMov);
-       swal
-         .fire({
-           title: "Editar Movimiento",
-           html: `<input type="text" id="movimiento" class="swal2-input" placeholder="Ingrese movimiento" value=${edit.nombre}>
+        swal
+            .fire({
+                title: "Editar Movimiento",
+                html: `
+                    <select class="swal2-input" id="tipo">
+                        <option value=${edit.tipo}>${edit.tipo}</option>
+                        <option value='Ingreso'>Ingreso</option>
+                        <option value='Gasto'>Gasto</option>
+                    </select>
+                   <input type="text" id="movimiento" class="swal2-input" placeholder="Ingrese movimiento" value=${edit.nombre}>
                    <input type="number" id="ValMove" class="swal2-input" placeholder="Ingrese valor" value=${edit.valor} >`,
-           confirmButtonText: "Guardar cambios",
-           focusConfirm: false,
-           cancelButtonText: "Cancelar",
-           showCloseButton: true,
-           focusConfirm: false,
-           showCancelButton: true,
-           preConfirm: () => {
-             const movimiento = swal
-               .getPopup()
-               .querySelector("#movimiento").value;
-             const valor = swal.getPopup().querySelector("#ValMove").value;
-             if (!movimiento || !valor) {
-               swal.showValidationMessage(`Please enter movimiento and value`);
-             }
-             console.log(movimiento);
-             console.log(valor);
-             return { movimiento: movimiento, ValMove: valor };
-           },
-         })
-         .then((result) => {
-           swal.fire(
-             `
-                  Movimiento: ${result.value.movimiento}
-                  Valor: ${result.value.ValMove}
-                    `.trim()
-           );
-         });
-        //props.nuevosaldo(registro); 
-        console.log(edit);
-
+                confirmButtonText: "Guardar cambios",
+                focusConfirm: false,
+                cancelButtonText: "Cancelar",
+                showCloseButton: true,
+                focusConfirm: false,
+                showCancelButton: true,
+                preConfirm: () => {
+                    const tipo = swal
+                        .getPopup()
+                        .querySelector("#tipo").value;
+                    const movimiento = swal
+                        .getPopup()
+                        .querySelector("#movimiento").value;
+                    const valor = swal.getPopup().querySelector("#ValMove").value;
+                    if (!movimiento || !valor || !tipo) {
+                        swal.showValidationMessage(`Please enter movimiento and value`);
+                    }
+                    updateMov(edit.id, tipo, movimiento, valor);
+                    return { tipo: tipo, movimiento: movimiento, valor: valor };
+                },
+            })
+            .then((result) => {
+                swal.fire(
+                    `
+                  Se actualizo de manera correcta`.trim()
+                );
+            });
     };
     const filterMovimiento = (inputValue) => {
         const newFilterMov = props.todo.filter((tipomov) => tipomov.tipo === inputValue);
@@ -65,7 +65,7 @@ const transactionList = (props) => {
     };
 
     const filterMovimientoNombre = (inputValue) => {
-        const newFilter = props.todo.filter((tipomov) => tipomov.nombre === inputValue);
+        const newFilter = props.todo.filter((tipomov) => tipomov.nombre.includes(inputValue));
         props.setTodosFilterList(newFilter);
     };
 
@@ -83,13 +83,13 @@ const transactionList = (props) => {
                     props.todoFilterList.length > 0 ? (
                         <>
                             {props.todoFilterList.map((todo) => (
-                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} editMovimiento={editMovimiento}></Transaction>
+                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} editMovimiento={editMovimiento} ></Transaction>
                             ))}
                         </>
                     ) : (
                         <>
                             {props.todo.map((todo) => (
-                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} editMovimiento={editMovimiento}></Transaction>
+                                <Transaction key={todo.id} todo={todo} deleteMovimiento={deleteMovimiento} editMovimiento={editMovimiento} ></Transaction>
                             ))}
                         </>
                     )

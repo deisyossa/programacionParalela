@@ -18,9 +18,7 @@ function App() {
   }
   const nuevosaldo = (registro) => {
     if (registro.tipo === "Gasto") {
-      console.log('entro primer if')
       if (saldoFinal < registro.valor) {
-        console.log('entro segundo if')
         swal({
           title: "Error",
           text: "No se tiene saldo suficiente para este gasto",
@@ -28,7 +26,6 @@ function App() {
           button: "Aceptar"
         })
       } else {
-        console.log('no entro al segundo if')
         swal({
           title: "Registro Exitoso",
           text: "El Gasto fue agregado con éxito.",
@@ -76,7 +73,7 @@ function App() {
     setSaldoFinal(saldoTotal);
   }, [todo,saldoInicial])
   
-
+  
   return (
     <div id="modal-container" className="d-grid gap-2">
       <header className="container-fluid pb-1 pt-5">
