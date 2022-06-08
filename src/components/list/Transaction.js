@@ -13,7 +13,7 @@ const Transaction = (props) => {
           <button className="button-edit" onClick={() => props.editMovimiento(props.todo)}>
             <FaEdit />
           </button>
-          <span> {props.todo.tipo} {props.todo.nombre}</span>
+          <span> {props.todo.nombre}</span>
           <span>   </span>
           <span className={props.todo.tipo==="Ingreso"? "bg-success" : "bg-danger"}> {props.todo.valor}</span>
         </p>

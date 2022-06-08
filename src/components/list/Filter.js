@@ -27,7 +27,6 @@ const Filter = (props) => {
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio1"
-                    checked={props.tipo === 0 ? true : false}
                     onChange ={cambioRadio}
                     value = "Todos"
                 />
@@ -41,7 +40,6 @@ const Filter = (props) => {
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio2"
-                    checked={props.tipo === 1 ? true : false}
                     onChange ={cambioRadio}
                     value = "Ingreso"
                 />
@@ -55,7 +53,6 @@ const Filter = (props) => {
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio3"    
-                    checked={props.tipo === 2 ? true : false}
                     onChange ={cambioRadio}
                     value = "Gasto"
                 />
@@ -63,7 +60,6 @@ const Filter = (props) => {
                     Gastos
                 </label>
             </div>
-            <p>El radio button seleccionado es:{props.tipo} </p>
         </form>
     )
 }
